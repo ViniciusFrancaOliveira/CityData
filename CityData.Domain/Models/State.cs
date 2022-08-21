@@ -4,7 +4,7 @@ namespace CityData.Domain.Models
 {
     public class State : BaseEntity
     {
-        public string Name { get; set; }
+        public string StateName { get; set; }
         public string StateCode { get; set; }
         private string UF 
         {
@@ -16,7 +16,7 @@ namespace CityData.Domain.Models
             {
                 if (value.Length <= 2)
                 {
-                    UF = value;
+                    UF = value.ToUpper();
                 }
                 else
                     throw new Exception("UF digitada inválida.");
