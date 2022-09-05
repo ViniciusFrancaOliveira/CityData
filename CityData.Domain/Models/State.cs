@@ -1,16 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace CityData.Domain.Models
 {
     public class State : BaseEntity
     {
+        public int StateID { get; set; }
         public string StateName { get; set; }
         public string StateCode { get; set; }
-        private string UF 
+        public string UF { get; private set; }
+        private string _UF
         {
             get
             {
-                return UF;
+                return _UF;
             }
             set
             {
@@ -23,10 +26,14 @@ namespace CityData.Domain.Models
             }
         }
         public int Population { get; set; }
+        public ICollection<City> Cities { get; set; }
 
+        public State() 
+        { 
+        }
         public State(string UF) 
         { 
-            this.UF = UF;
+            _UF = UF;
         }
     }
 }

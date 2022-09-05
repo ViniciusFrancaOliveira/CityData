@@ -1,4 +1,5 @@
 ﻿using CityData.Domain.Models;
+using CityData.Infrastructure.Context.Configuration;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -22,10 +23,9 @@ namespace CityData.Infrastructure.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            // TODO
-            //modelBuilder.ApplyConfiguration<City>(new CityConfiguration());
-            //modelBuilder.ApplyConfiguration<States>(new StateConfiguration());
 
+            modelBuilder.ApplyConfiguration(new CityConfiguration());
+            modelBuilder.ApplyConfiguration(new StateConfiguration());
         }
 
         public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess,
@@ -38,6 +38,7 @@ namespace CityData.Infrastructure.Context
             AddedEntities.ForEach(E =>
             {
                 E.Property("CreatedDate").CurrentValue = DateTime.Now;
+                E.Property("IsDeleted").CurrentValue = false;
             });
 
             var EditedEntities = ChangeTracker.Entries()

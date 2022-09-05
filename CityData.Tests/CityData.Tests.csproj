@@ -21,6 +21,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CityData.Application\CityData.Application.csproj" />
+    <ProjectReference Include="..\CityData.Domain\CityData.Domain.csproj" />
+    <ProjectReference Include="..\CityData.Infrastructure\CityData.Infrastructure.csproj" />
+    <ProjectReference Include="..\CityData\CityData.Web.csproj" />
   </ItemGroup>
 
 </Project>

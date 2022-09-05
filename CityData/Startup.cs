@@ -28,7 +28,7 @@ namespace CityData.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddDbContext<CityDataContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("NotYetMade")));
+            services.AddDbContext<CityDataContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("CityDB")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
