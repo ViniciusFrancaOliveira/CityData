@@ -87,17 +87,12 @@ namespace CityData.Application.Http
             httpHandler.UseCookies = true;
 
             var httpClient = new HttpClient(httpHandler);
-            string cityNameWithDash = GetCityNameWithDash(city);
+            string cityNameWithDash = city.ChangeSpaceWithDash();
 
             string url = IBGEUrl + $"{UF}/{cityNameWithDash}";
             httpClient.BaseAddress = new Uri(url);
 
             return httpClient;
-        }
-
-        private string GetCityNameWithDash(string city)
-        {
-            return city.Trim().Replace(" ", "-");
         }
     }
 }
