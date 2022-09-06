@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace CityData.Domain.Models
 {
@@ -9,5 +10,6 @@ namespace CityData.Domain.Models
         public int Population { get; set; }
         public string CityCode { get; set; }
         public State State { get; set; }
+        public string UF { get => State.UF; }
     }
 }

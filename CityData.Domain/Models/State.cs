@@ -11,10 +11,7 @@ namespace CityData.Domain.Models
         public string UF { get; private set; }
         private string _UF
         {
-            get
-            {
-                return _UF;
-            }
+            get => _UF;
             set
             {
                 if (value.Length <= 2)
@@ -22,7 +19,9 @@ namespace CityData.Domain.Models
                     UF = value.ToUpper();
                 }
                 else
+                {
                     throw new Exception("UF digitada inválida.");
+                }
             }
         }
         public int Population { get; set; }

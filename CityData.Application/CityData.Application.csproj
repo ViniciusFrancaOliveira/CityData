@@ -13,4 +13,8 @@
     <ProjectReference Include="..\CityData.Infrastructure\CityData.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Helper\" />
+  </ItemGroup>
+
 </Project>

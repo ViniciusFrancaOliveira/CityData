@@ -49,15 +49,10 @@ namespace CityData.Application.Http
 
         public async Task<City> GetCityData(string UF, string cityName)
         {
-            HttpClient httpClient = GetHttpClientInstance(UF, cityName);
-
-            string response = await httpClient.GetStringAsync(httpClient.BaseAddress);
-
-            HtmlDocument htmlDocument = new HtmlDocument();
-            htmlDocument.LoadHtml(response);
+            HtmlDocument htmlDocument = await GetHtmlPage(UF, cityName);
 
             City city = new City();
-            
+
             var htmlElements = htmlDocument.DocumentNode.Descendants("p");
             bool GetNextValue = false;
 
@@ -79,6 +74,17 @@ namespace CityData.Application.Http
             return city;
         }
 
+        private async Task<HtmlDocument> GetHtmlPage(string UF, string cityName)
+        {
+            HttpClient httpClient = GetHttpClientInstance(UF, cityName);
+            string response = await httpClient.GetStringAsync(httpClient.BaseAddress);
+
+            HtmlDocument htmlDocument = new HtmlDocument();
+            htmlDocument.LoadHtml(response);
+
+            return htmlDocument;
+        }
+
         private HttpClient GetHttpClientInstance(string UF, string city = "")
         {
             var httpHandler = new HttpClientHandler();
@@ -87,7 +93,7 @@ namespace CityData.Application.Http
             httpHandler.UseCookies = true;
 
             var httpClient = new HttpClient(httpHandler);
-            string cityNameWithDash = city.ChangeSpaceWithDash();
+            string cityNameWithDash = city.ChangeSpaceForDash();
 
             string url = IBGEUrl + $"{UF}/{cityNameWithDash}";
             httpClient.BaseAddress = new Uri(url);
