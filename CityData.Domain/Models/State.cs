@@ -9,34 +9,10 @@ namespace CityData.Domain.Models
         public string StateName { get; set; }
         public string Ethnic { get; set; }
         public string StateCode { get; set; }
-        public string UF { get; private set; }
-        private string _UF
-        {
-            get => _UF;
-            set
-            {
-                if (value.Length <= 2)
-                {
-                    UF = value.ToUpper();
-                }
-                else
-                {
-                    throw new Exception("UF digitada inválida.");
-                }
-            }
-        }
+        public string UF { get; set; }
         public int Population { get; set; }
-        public int TerritorialArea { get; set; }
+        public double TerritorialArea { get; set; }
         public double HDI { get; set; }
-
         public ICollection<City> Cities { get; set; }
-
-        public State() 
-        { 
-        }
-        public State(string UF) 
-        { 
-            _UF = UF;
-        }
     }
 }

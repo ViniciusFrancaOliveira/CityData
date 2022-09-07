@@ -27,6 +27,10 @@ namespace CityData.Tests.Http
             State stateData = await getStateData.GetStateData(UF);
 
             Assert.True(stateData.Population > 0);
+            Assert.True(stateData.TerritorialArea > 0);
+            Assert.True(stateData.HDI > 0);
+            Assert.Equal(stateData.UF, UF);
+            Assert.NotNull(stateData.Ethnic);
         }
     }
 }

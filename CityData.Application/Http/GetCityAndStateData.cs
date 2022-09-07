@@ -2,34 +2,63 @@
 using CityData.Domain.Models;
 using HtmlAgilityPack;
 using System.Threading.Tasks;
+using CityData.Application.Helper;
+using System.Collections.Generic;
+using Newtonsoft.Json;
+using System.Linq;
 
 namespace CityData.Application.Http
 {
     public class GetCityAndStateData : IBGEPageAcess
     {
-       
-
         public async Task<State> GetStateData(string UF)
         {
             HtmlDocument htmlDocument = await GetHtmlPage(UF);
             var htmlElements = htmlDocument.DocumentNode.Descendants("p");
 
-            bool GetNextValue = false;
-            State state = new State();
+            bool getNextValue = false;
+            bool isValueNumber = false;
+            string valueToGetName = "";
+
+            var stateDataToDeserialize = new Dictionary<string, object>();
+            stateDataToDeserialize.Add("UF", UF);
+
             foreach (var htmlElement in htmlElements)
             {
-                if (GetNextValue)
+                if (CityAndStateDataDictionary.CityAndStateData.ContainsKey(htmlElement.InnerText))
                 {
-                    state.Population = htmlElement.InnerText.GetAndCleanNumbers();
-                }
-                if (htmlElement.InnerText == "População estimada")
-                {
-                    GetNextValue = true;
+                    valueToGetName = CityAndStateDataDictionary.CityAndStateData[htmlElement.InnerText];
+                    getNextValue = true;
                     continue;
                 }
+                if (getNextValue)
+                {
+                    isValueNumber = htmlElement.InnerText.Any(char.IsDigit);
+                    if (isValueNumber)
+                    {
+                        double valueToAdd = htmlElement.InnerText.GetAndCleanNumbers();
+                        bool isInt = valueToAdd.IsInteger();
 
-                GetNextValue = false;
+                        if (isInt)
+                        {
+                            stateDataToDeserialize.Add(valueToGetName, (int)valueToAdd);
+                        }
+                        else
+                        {
+                            stateDataToDeserialize.Add(valueToGetName, valueToAdd);
+                        }
+                    }
+                    else
+                    {
+                        stateDataToDeserialize.Add(valueToGetName, htmlElement.InnerText);
+                    }
+                    valueToGetName = "";
+                }
+                getNextValue = false;
             }
+
+            string stateDataInJson = JsonConvert.SerializeObject(stateDataToDeserialize);
+            State state = JsonConvert.DeserializeObject<State>(stateDataInJson);
 
             return state;
         }
@@ -46,7 +75,7 @@ namespace CityData.Application.Http
             {
                 if (GetNextValue)
                 {
-                    city.Population = htmlElement.InnerText.GetAndCleanNumbers();
+                    city.Population = (int)htmlElement.InnerText.GetAndCleanNumbers();
                 }
                 if (htmlElement.InnerText == "População estimada")
                 {
@@ -59,7 +88,5 @@ namespace CityData.Application.Http
 
             return city;
         }
-
-
     }
 }

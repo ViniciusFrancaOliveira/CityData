@@ -7,10 +7,12 @@ namespace CityData.Application.Extensions
 {
     public static class StringExtension
     {
-        public static int GetAndCleanNumbers(this string text)
+        public static double GetAndCleanNumbers(this string text)
         {
-            Regex regex = new Regex(@"[0-9.]+");
-            return int.Parse(regex.Match(text).Value.Trim().Replace(".", ""));
+            Regex regex = new Regex(@"[0-9.,]+");
+            double cleanedNumber = double.Parse(regex.Match(text).Value.Trim().Replace(".", ""));
+
+            return cleanedNumber;
         }
 
         public static string ChangeSpaceForDash(this string text)

@@ -10,7 +10,7 @@ namespace CityData.Domain.Models
         public string Ethnic { get; set; }
         public string CityCode { get; set; }
         public int Population { get; set; }
-        public int TerritorialArea { get; set; }
+        public double TerritorialArea { get; set; }
         public double HDI { get; set; }
         
         public State State { get; set; }
