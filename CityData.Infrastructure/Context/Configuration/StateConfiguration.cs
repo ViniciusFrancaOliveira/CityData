@@ -14,6 +14,8 @@ namespace CityData.Infrastructure.Context.Configuration
             builder.Property(state => state.StateName)
                    .IsRequired()
                    .HasMaxLength(50);
+            builder.Property(state => state.Ethnic)
+                   .HasMaxLength(50);
             builder.Property(state => state.UF)
                    .IsRequired();
             builder.Property(state => state.StateCode)

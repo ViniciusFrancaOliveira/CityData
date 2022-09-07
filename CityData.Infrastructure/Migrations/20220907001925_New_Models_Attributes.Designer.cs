@@ -4,14 +4,16 @@ using CityData.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CityData.Infrastructure.Migrations
 {
     [DbContext(typeof(CityDataContext))]
-    partial class CityDataContextModelSnapshot : ModelSnapshot
+    [Migration("20220907001925_New_Models_Attributes")]
+    partial class New_Models_Attributes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

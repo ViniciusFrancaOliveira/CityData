@@ -17,6 +17,8 @@
     <Compile Remove="Migrations\20220905224142_Initial.Designer.cs" />
     <Compile Remove="Migrations\20220906235347_Changing_Attribute_UF.cs" />
     <Compile Remove="Migrations\20220906235347_Changing_Attribute_UF.Designer.cs" />
+    <Compile Remove="Migrations\20220907001215_New_Models_Attributes.cs" />
+    <Compile Remove="Migrations\20220907001215_New_Models_Attributes.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
