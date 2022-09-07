@@ -9,7 +9,7 @@ namespace CityData.Tests.Http
     {
         [Theory]
         [InlineData("BA", "Salvador")]
-        //[InlineData("RS", "Porto Alegre")]
+        [InlineData("RS", "Porto Alegre")]
         public async Task Get_City_Data_Successifuly(string UF, string city)
         {
             var getCityData = new GetCityAndStateData();
@@ -20,7 +20,7 @@ namespace CityData.Tests.Http
 
         [Theory]
         [InlineData("BA")]
-        //[InlineData("RS")]
+        [InlineData("RS")]
         public async Task Get_State_Data_Successifuly(string UF)
         {
             var getStateData = new GetCityAndStateData();
