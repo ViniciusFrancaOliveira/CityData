@@ -5,14 +5,14 @@ using Xunit;
 
 namespace CityData.Tests.Http
 {
-    public class GetCityAndStateDataTest
+    public class CityAndStateDataTest
     {
         [Theory]
         [InlineData("BA", "Salvador")]
         [InlineData("RS", "Porto Alegre")]
         public async Task Get_City_Data_Successifuly(string UF, string city)
         {
-            var getCityData = new GetCityAndStateData();
+            var getCityData = new CityAndStateData();
             City cityData = await getCityData.GetCityData(UF, city);
 
             Assert.True(cityData.Population > 0);
@@ -23,7 +23,7 @@ namespace CityData.Tests.Http
         [InlineData("RS")]
         public async Task Get_State_Data_Successifuly(string UF)
         {
-            var getStateData = new GetCityAndStateData();
+            var getStateData = new CityAndStateData();
             State stateData = await getStateData.GetStateData(UF);
 
             Assert.True(stateData.Population > 0);

@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace CityData.Application.Http
 {
-    public class GetCityAndStateData : IBGEPageAcess
+    public class CityAndStateData : IBGEPageAcess
     {
         public async Task<State> GetStateData(string UF)
         {
