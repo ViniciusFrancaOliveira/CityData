@@ -14,6 +14,6 @@ namespace CityData.Domain.Models
         public double HDI { get; set; }
         
         public State State { get; set; }
-        public string UF { get => State.UF; }
+        public string UF { get; set; }
     }
 }

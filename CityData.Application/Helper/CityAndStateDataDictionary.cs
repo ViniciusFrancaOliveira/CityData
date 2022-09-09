@@ -10,7 +10,7 @@ namespace CityData.Application.Helper
         {
             { "Área Territorial", "TerritorialArea"},
             { "População estimada", "Population"},
-            { "IDHM", "HDI"},
+            { "IDHM &Iacute;ndice de desenvolvimento humano municipal", "HDI"},
             { "IDH Índice de desenvolvimento humano", "HDI"},
             { "Gent&iacute;lico", "Ethnic"}
         };

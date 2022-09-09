@@ -9,13 +9,17 @@ namespace CityData.Tests.Http
     {
         [Theory]
         [InlineData("BA", "Salvador")]
-        [InlineData("RS", "Porto Alegre")]
+        //[InlineData("RS", "Porto Alegre")]
         public async Task Get_City_Data_Successifuly(string UF, string city)
         {
             var getCityData = new CityAndStateData();
             City cityData = await getCityData.GetCityData(UF, city);
 
             Assert.True(cityData.Population > 0);
+            Assert.True(cityData.TerritorialArea > 0);
+            Assert.True(cityData.HDI > 0);
+            Assert.Equal(cityData.UF, UF);
+            Assert.NotNull(cityData.Ethnic);
         }
 
         [Theory]

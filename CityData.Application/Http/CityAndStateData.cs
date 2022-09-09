@@ -68,23 +68,50 @@ namespace CityData.Application.Http
             HtmlDocument htmlDocument = await GetHtmlPage(UF, cityName);
             var htmlElements = htmlDocument.DocumentNode.Descendants("p");
 
-            bool GetNextValue = false;
-            City city = new City();
+            bool getNextValue = false;
+            bool isValueNumber = false;
+            string valueToGetName = "";
+
+            var cityDataToDeserialize = new Dictionary<string, object>();
+            cityDataToDeserialize.Add("City", cityName);
+            cityDataToDeserialize.Add("UF", UF);
 
             foreach (var htmlElement in htmlElements)
             {
-                if (GetNextValue)
+                if (CityAndStateDataDictionary.CityAndStateData.ContainsKey(htmlElement.InnerText))
                 {
-                    city.Population = (int)htmlElement.InnerText.GetAndCleanNumbers();
-                }
-                if (htmlElement.InnerText == "População estimada")
-                {
-                    GetNextValue = true;
+                    valueToGetName = CityAndStateDataDictionary.CityAndStateData[htmlElement.InnerText];
+                    getNextValue = true;
                     continue;
                 }
+                if (getNextValue)
+                {
+                    isValueNumber = htmlElement.InnerText.Any(char.IsDigit);
+                    if (isValueNumber)
+                    {
+                        double valueToAdd = htmlElement.InnerText.GetAndCleanNumbers();
+                        bool isInt = valueToAdd.IsInteger();
 
-                GetNextValue = false;
+                        if (isInt)
+                        {
+                            cityDataToDeserialize.Add(valueToGetName, (int)valueToAdd);
+                        }
+                        else
+                        {
+                            cityDataToDeserialize.Add(valueToGetName, valueToAdd);
+                        }
+                    }
+                    else
+                    {
+                        cityDataToDeserialize.Add(valueToGetName, htmlElement.InnerText);
+                    }
+                    valueToGetName = "";
+                }
+                getNextValue = false;
             }
+
+            string cityDataInJson = JsonConvert.SerializeObject(cityDataToDeserialize);
+            City city = JsonConvert.DeserializeObject<City>(cityDataInJson);
 
             return city;
         }
